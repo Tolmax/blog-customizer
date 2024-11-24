@@ -7,7 +7,8 @@ export const ArticleParamsForm = () => {
 	return (
 		<>
 			<ArrowButton isOpen={false} onClick={() => {}} />
-			<aside className={styles.container}>
+			<aside className={styles.container_open}>
+				{/* <aside className={styles.container}> */}
 				<form className={styles.form}>
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' htmlType='reset' type='clear' />
