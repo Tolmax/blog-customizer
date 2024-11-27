@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { StrictMode, CSSProperties } from 'react';
+import { StrictMode, CSSProperties, useState, useEffect } from 'react';
 import clsx from 'clsx';
 
 import { Article } from './components/article/Article';
@@ -13,16 +13,32 @@ const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
 
 const App = () => {
+	const [theme, setTheme] = useState({
+		fontFamily: defaultArticleState.fontFamilyOption.value,
+		fontSize: defaultArticleState.fontSizeOption.value,
+		fontColor: defaultArticleState.fontColor.value,
+		containerWidth: defaultArticleState.contentWidth.value,
+		bgColor: defaultArticleState.backgroundColor.value,
+	});
+
+	useEffect(function () {
+		setTimeout(() => {
+			setTheme((prevState) => {
+				return { ...prevState, fontFamily: 'Ubuntu' };
+			});
+		}, 5000);
+	}, []);
+
 	return (
 		<main
 			className={clsx(styles.main)}
 			style={
 				{
-					'--font-family': defaultArticleState.fontFamilyOption.value,
-					'--font-size': defaultArticleState.fontSizeOption.value,
-					'--font-color': defaultArticleState.fontColor.value,
-					'--container-width': defaultArticleState.contentWidth.value,
-					'--bg-color': defaultArticleState.backgroundColor.value,
+					'--font-family': theme.fontFamily,
+					'--font-size': theme.fontSize,
+					'--font-color': theme.fontColor,
+					'--container-width': theme.containerWidth,
+					'--bg-color': theme.bgColor,
 				} as CSSProperties
 			}>
 			<ArticleParamsForm />

@@ -12,7 +12,10 @@ import {
 	defaultArticleState,
 	fontColors,
 	fontFamilyOptions,
+	fontSizeOptions,
 } from 'src/constants/articleProps';
+
+import { RadioGroup } from 'src/ui/radio-group';
 
 export const ArticleParamsForm = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -34,6 +37,11 @@ export const ArticleParamsForm = () => {
 	const [fontSelected, setFontSelected] = useState(
 		defaultArticleState.fontFamilyOption
 	);
+
+	const [fontsizeSelected, setFontsizeSelected] = useState(
+		defaultArticleState.fontSizeOption
+	);
+
 	const [colorSelected, setcolorSelected] = useState(
 		defaultArticleState.fontColor
 	);
@@ -57,6 +65,13 @@ export const ArticleParamsForm = () => {
 						onChange={setFontSelected}
 						options={fontFamilyOptions}
 						title='ШРИФТ'
+					/>
+					<RadioGroup
+						selected={fontsizeSelected}
+						name='radio'
+						onChange={setFontsizeSelected}
+						options={fontSizeOptions}
+						title='РАЗМЕР ШРИФТА'
 					/>
 					<Select
 						selected={colorSelected}
