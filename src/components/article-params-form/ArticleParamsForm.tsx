@@ -16,8 +16,13 @@ import {
 } from 'src/constants/articleProps';
 
 import { RadioGroup } from 'src/ui/radio-group';
+import { ThemeConfig } from 'src/index';
 
-export const ArticleParamsForm = () => {
+interface ChildProps {
+	themeChange: (themeConfig: ThemeConfig) => void;
+}
+
+export const ArticleParamsForm: React.FC<ChildProps> = ({ themeChange }) => {
 	const [isOpen, setIsOpen] = useState(false);
 
 	function handleToggleSidebar() {
@@ -33,6 +38,10 @@ export const ArticleParamsForm = () => {
 			setIsOpen(false);
 		},
 	});
+
+	function closeButton() {
+		setIsOpen(!isOpen);
+	}
 
 	const [fontSelected, setFontSelected] = useState(
 		defaultArticleState.fontFamilyOption
@@ -93,8 +102,41 @@ export const ArticleParamsForm = () => {
 						title='ШИРИНА КОНТЕНТА'
 					/>
 					<div className={styles.bottomContainer}>
-						<Button title='Сбросить' htmlType='reset' type='clear' />
-						<Button title='Применить' htmlType='submit' type='apply' />
+						<Button
+							title='Сбросить'
+							htmlType='reset'
+							type='clear'
+							onClick={() => {
+								themeChange({
+									fontFamily: defaultArticleState.fontFamilyOption.value,
+									fontSize: defaultArticleState.fontSizeOption.value,
+									fontColor: defaultArticleState.fontColor.value,
+									containerWidth: defaultArticleState.contentWidth.value,
+									bgColor: defaultArticleState.backgroundColor.value,
+								});
+								closeButton();
+								setFontSelected(defaultArticleState.fontFamilyOption);
+								setFontsizeSelected(defaultArticleState.fontSizeOption);
+								setcolorSelected(defaultArticleState.fontColor);
+								setbackColorSelected(defaultArticleState.backgroundColor);
+								setContentSelected(defaultArticleState.contentWidth);
+							}}
+						/>
+						<Button
+							title='Применить'
+							htmlType='button'
+							type='apply'
+							onClick={() => {
+								themeChange({
+									fontFamily: fontSelected.value,
+									fontSize: fontsizeSelected.value,
+									fontColor: colorSelected.value,
+									containerWidth: contentSelected.value,
+									bgColor: backColorSelected.value,
+								});
+								closeButton();
+							}}
+						/>
 					</div>
 				</form>
 			</aside>

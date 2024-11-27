@@ -1,5 +1,5 @@
 import { createRoot } from 'react-dom/client';
-import { StrictMode, CSSProperties, useState, useEffect } from 'react';
+import { StrictMode, CSSProperties, useState } from 'react';
 import clsx from 'clsx';
 
 import { Article } from './components/article/Article';
@@ -11,23 +11,34 @@ import styles from './styles/index.module.scss';
 
 const domNode = document.getElementById('root') as HTMLDivElement;
 const root = createRoot(domNode);
-
+export interface ThemeConfig {
+	fontFamily: string;
+	fontSize: string;
+	fontColor: string;
+	containerWidth: string;
+	bgColor: string;
+}
 const App = () => {
-	const [theme, setTheme] = useState({
+	const [theme, setTheme] = useState<ThemeConfig>({
 		fontFamily: defaultArticleState.fontFamilyOption.value,
 		fontSize: defaultArticleState.fontSizeOption.value,
 		fontColor: defaultArticleState.fontColor.value,
 		containerWidth: defaultArticleState.contentWidth.value,
 		bgColor: defaultArticleState.backgroundColor.value,
 	});
+	function changeState(themeConfig: ThemeConfig) {
+		setTheme(themeConfig);
+	}
 
-	useEffect(function () {
-		setTimeout(() => {
-			setTheme((prevState) => {
-				return { ...prevState, fontFamily: 'Ubuntu' };
-			});
-		}, 5000);
-	}, []);
+	// useEffect(function () {
+	// 	console.log('Hello222');
+	// 	setTimeout(() => {
+	// 		changeState();
+	// 		// 	setTheme((prevState) => {
+	// 		// 		return { ...prevState, fontFamily: 'Ubuntu' };
+	// 		// 	});
+	// 	}, 5000);
+	// }, []);
 
 	return (
 		<main
@@ -41,7 +52,7 @@ const App = () => {
 					'--bg-color': theme.bgColor,
 				} as CSSProperties
 			}>
-			<ArticleParamsForm />
+			<ArticleParamsForm themeChange={changeState} />
 			<Article />
 		</main>
 	);
