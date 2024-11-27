@@ -30,16 +30,6 @@ const App = () => {
 		setTheme(themeConfig);
 	}
 
-	// useEffect(function () {
-	// 	console.log('Hello222');
-	// 	setTimeout(() => {
-	// 		changeState();
-	// 		// 	setTheme((prevState) => {
-	// 		// 		return { ...prevState, fontFamily: 'Ubuntu' };
-	// 		// 	});
-	// 	}, 5000);
-	// }, []);
-
 	return (
 		<main
 			className={clsx(styles.main)}
